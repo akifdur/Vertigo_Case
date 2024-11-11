@@ -115,6 +115,7 @@ namespace CustomImporter
 
         private void Import()
         {
+            // Copy the files from the origibnal path to the new path.
             string originalPath = AssetDatabase.GetAssetPath(targetFolder);
             string createdPath = Path.Combine(Path.GetDirectoryName(originalPath), Path.GetFileName(externalAssetsPath));
             AssetDatabase.CopyAsset(originalPath, createdPath);
@@ -122,8 +123,7 @@ namespace CustomImporter
             var originalAssetGUIDs = AssetDatabase.FindAssets("", new string[1] { originalPath });
             var createdAssetGUIDs = AssetDatabase.FindAssets("", new string[1] { createdPath });
 
-            RenameNewFiles(createdAssetGUIDs);
-            Dictionary<string, string> GUIDMap = new Dictionary<string, string>();
+            RenameCreatedFiles(createdAssetGUIDs);
 
             var filesToFix = CustomImporterUtility.FindFiles(CustomImporterUtility.ConvertToAbsolutePath(createdPath), x =>
             {
@@ -141,7 +141,7 @@ namespace CustomImporter
             AssetDatabase.Refresh();
         }
 
-        private void RenameNewFiles(string[] createdFileGUIDs)
+        private void RenameCreatedFiles(string[] createdFileGUIDs)
         {
             for (int i = createdFileGUIDs.Length - 1; i >= 0; i--)
             {
