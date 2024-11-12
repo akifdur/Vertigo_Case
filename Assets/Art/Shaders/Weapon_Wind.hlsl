@@ -8,7 +8,7 @@ void SampleNoise_float(float2 UV, float4 VertexColor, UnityTexture2D NoiseMap, o
     float4 textureSample = SAMPLE_TEXTURE2D_LOD(NoiseMap.tex, NoiseMap.samplerstate, UV, 0);
 
     float lineTexture = textureSample.x;
-    float noiseTexture = textureSample.y * 0.8;
+    float noiseTexture = textureSample.y * 0.6;
     
     float noiseMask = 1;
     noiseMask *= smoothstep(0.5, 1, sin(UV.y * 2 + _Time.y * 0.1));
